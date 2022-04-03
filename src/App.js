@@ -4,12 +4,14 @@ import Message from "./Message";
 import "./message.scss";
 
 function App() {
+  // Это стейт
   const [messages, setMessage] = useState([]);
-
+  // Тут я добавляю сообщение с Стейт
   const createMessage = (newMessage) => {
     setMessage([...messages, newMessage]);
   };
 
+  // Это добавляет ответ робота , что по заданию требуется
   useEffect(() => {
     if (messages.length > 0) {
       let lastMsg = messages[messages.length - 1];
@@ -19,12 +21,15 @@ function App() {
         textMessage:
           "Здравствуйте, " +
           lastMsg.author +
-          ". Ваше сообщение принято к рассмотрению! Ожидайте ответа специалиста.",
+          ". Ваше сообщение принято! Ожидайте ответ специалиста.",
       };
       if (lastMsg.author !== "Робот Вася") {
         setTimeout(() => {
           setMessage([...messages, robotMsg]);
-        }, 1500);
+          window.scrollTo(500, document.body.scrollHeight, {
+            behavior: "smooth",
+          });
+        }, 3500);
       }
     }
   }, [messages]);
