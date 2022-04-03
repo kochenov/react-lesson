@@ -17,7 +17,7 @@ body {
     padding-bottom: 200px;
 }
 
-header {
+.row {
     display: block;
     width: 500px;
     margin: 0 auto;
@@ -67,4 +67,11 @@ header {
         border-radius: 10px;
 
     }
+}
+
+.MuiBox-root {
+    position: fixed;
+    top: 20px;
+    left: 8%;
+    border-radius: 5px;
 }
