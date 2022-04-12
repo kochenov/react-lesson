@@ -1,52 +1,40 @@
-import React, { useState, useEffect } from "react";
-import Form from "./Form";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+
 import ListChats from "./ListChats";
-import Message from "./Message";
+import "./style.scss";
 import "./message.scss";
+import Chats from "./pages/Chats";
+import Home from "./pages/Home";
+import Profile from "./pages/Profile";
 
 function App() {
-  // Это стейт
-  const [messages, setMessage] = useState([]);
-  // Тут я добавляю сообщение с Стейт
-  const createMessage = (newMessage) => {
-    setMessage([...messages, newMessage]);
-  };
 
-  // Это добавляет ответ робота , что по заданию требуется
-  useEffect(() => {
-    if (messages.length > 0) {
-      let lastMsg = messages[messages.length - 1];
-      let robotMsg = {
-        id: Date.now(),
-        author: "Робот Вася",
-        textMessage:
-          "Здравствуйте, " +
-          lastMsg.author +
-          ". Ваше сообщение принято! Ожидайте ответ специалиста.",
-      };
-      if (lastMsg.author !== "Робот Вася") {
-        setTimeout(() => {
-          setMessage([...messages, robotMsg]);
-          window.scrollTo(500, document.body.scrollHeight, {
-            behavior: "smooth",
-          });
-        }, 3500);
-      }
-    }
-  }, [messages]);
+  const liders = [
+    { id: '1', name: "Владимир Путин" },
+    { id: '2', name: "Джозеф Байден" },
+    { id: '3', name: "Володимир Зеленский" },
+    { id: '4', name: "Олаф Шольц" },
+    { id: '5', name: "Эмманюэль Макрон" },
+    { id: '6', name: "Си Цзиньпин" },
+  ];
 
   return (
-    <div className="App">
-      <div className="row">
-        <div className="App-header">
-          {messages.map((message) => (
-            <Message message={message} key={message.id} />
-          ))}
+    <BrowserRouter>
+      <div className="container">
+        <div className="App">
+          <div className="row">
+            <Routes>
+              <Route path="/" exact element={<Home />} />
+              <Route path="/profile" element={<Profile />} />
+              <Route path="/chats" element={<Chats liders={liders} list={true}/>}>
+                <Route path=":idChat" element={<Chats liders={liders} list={false}/>} />
+              </Route>
+            </Routes>
+            <ListChats liders={liders}/>
+          </div>
         </div>
-        <ListChats />
       </div>
-      <Form create={createMessage} />
-    </div>
+    </BrowserRouter>
   );
 }
 

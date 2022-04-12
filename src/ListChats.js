@@ -7,19 +7,18 @@ import ListItemText from "@mui/material/ListItemText";
 import Avatar from "@mui/material/Avatar";
 import ListItemAvatar from "@mui/material/ListItemAvatar";
 import ListSubheader from "@mui/material/ListSubheader";
+import Router from "./pages/Router";
+import { Link } from "react-router-dom";
 
-const ListChats = () => {
-  const [chat, setChat] = useState([
-    { id: 1, name: "Владимир Путин" },
-    { id: 2, name: "Джозеф Байден" },
-    { id: 3, name: "Володимир Зеленский" },
-    { id: 4, name: "Олаф Шольц" },
-    { id: 5, name: "Эмманюэль Макрон" },
-    { id: 6, name: "Си Цзиньпин" },
-  ]);
+const ListChats = ({liders}) => {
+  
+  const [chat] = useState(liders);
+  
+  
 
   return (
     <Box sx={{ width: "100%", maxWidth: 360, bgcolor: "background.paper" }}>
+      <Router />
       <nav aria-label="secondary mailbox folders">
         <List
           subheader={<ListSubheader>Задать вопрос президенту:</ListSubheader>}
@@ -33,7 +32,9 @@ const ListChats = () => {
                     src={`/static/images/avatar/${item.id}.jpg`}
                   />
                 </ListItemAvatar>
-                <ListItemText primary={item.name} />
+                <Link to={`${'/chats/' + item.id}`}>
+                  <ListItemText primary={item.name} />
+                </Link>
               </ListItemButton>
             </ListItem>
           ))}
