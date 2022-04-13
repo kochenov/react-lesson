@@ -1,7 +1,8 @@
-const Message = (probs) => {
+const Message = ({ message }) => {
   return (
     <div className="message">
-      <p> {probs.text}</p>
+      <p> {message.author}</p>
+      <blockquote>{message.textMessage}</blockquote>
     </div>
   );
 };
