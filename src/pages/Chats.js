@@ -9,7 +9,6 @@ const Chats = ({ liders }, list) => {
   const [messages, setMessage] = useState({});
   const { idChat } = useParams();
   const [curentLider] = liders.filter((item) => item.id === idChat);
-  console.log(curentLider);
   // Тут я добавляю сообщение с Стейт
   const createMessage = (newMessage) => {
     if (messages[idChat]) {
@@ -29,9 +28,6 @@ const Chats = ({ liders }, list) => {
   };
   // Это добавляет ответ робота , что по заданию требуется
   useEffect(() => {
-    if (messages[idChat]) {
-      console.log(messages[idChat].messages);
-    }
     if (messages[idChat] && messages[idChat].messages.length > 0) {
       let lastMsg =
         messages[idChat].messages[messages[idChat].messages.length - 1];
@@ -60,6 +56,13 @@ const Chats = ({ liders }, list) => {
       }
     }
   }, [messages]);
+
+  const deleteMsg = (message)=>{
+   let newMess =  messages;
+    delete newMess[message];
+   setMessage({...messages , ...newMess });
+    
+  }
   return (
     <>
       <div className="App-header">
@@ -75,7 +78,7 @@ const Chats = ({ liders }, list) => {
               <Form create={createMessage} />
             </div>
           </>
-        ) : <CurrentChats messages={messages}/>}
+        ) : <CurrentChats deleteMess={deleteMsg} messages={messages}/>}
       </div>
     </>
   );

@@ -6,6 +6,7 @@ import "./message.scss";
 import Chats from "./pages/Chats";
 import Home from "./pages/Home";
 import Profile from "./pages/Profile";
+import NotFound from "./components/NotFound";
 
 function App() {
 
@@ -29,6 +30,7 @@ function App() {
               <Route path="/chats" element={<Chats liders={liders} list={true}/>}>
                 <Route path=":idChat" element={<Chats liders={liders} list={false}/>} />
               </Route>
+              <Route path="*" element={<NotFound />} />
             </Routes>
             <ListChats liders={liders}/>
           </div>
